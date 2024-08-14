@@ -31,18 +31,18 @@ var weatherIcon = document.getElementById("weather-icon");
       var now = new Date();
       var hours = now.getHours();
       var minutes = now.getMinutes();
-     // var seconds = now.getSeconds();
+     
       
       // Add leading zeros to minutes and seconds
       minutes = minutes < 10 ? '0' + minutes : minutes;
-     // seconds = seconds < 10 ? '0' + seconds : seconds;
+  
 
       // Display the time in a 12-hour format with AM/PM
       var ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
       hours = hours ? hours : 12; // the hour '0' should be '12'
 
-      var timeString = hours + ':' + minutes /*+ ':' + seconds */+ ' ' + ampm;
+      var timeString = hours + ':' + minutes + ' ' + ampm;
       
       document.getElementById('clock').innerHTML = timeString;
   }
