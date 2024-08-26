@@ -14,7 +14,6 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;  // Import SimpleDateFormat
 import java.util.Date;  // Import Date
-//import java.sql.Date;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -84,7 +83,10 @@ public class MyServlet extends HttpServlet {
 		Gson gson=new Gson();
 		JsonObject jsonObject= gson.fromJson(responseContent.toString(),JsonObject.class);
 		 //System.out.println(jsonObject);
-		 
+		 if (jsonObject.has("cod") && jsonObject.get("cod").getAsInt() != 200) {
+	            String errorMessage = jsonObject.get("message").getAsString();
+	            request.setAttribute("errorMessage", "Error: " + errorMessage);
+	        } else {
 		 //Date & Time
 		 long dateTimestamp=jsonObject.get("dt").getAsLong() * 1000;
 		 String date= new Date(dateTimestamp).toString();
@@ -111,11 +113,12 @@ public class MyServlet extends HttpServlet {
 		 request.setAttribute("humidity", humidity);
 		 request.setAttribute("windSpeed", windSpeed);
 		 request.setAttribute("weatherData", responseContent.toString());
-		 
+	        }
 		 connection.disconnect();
 		 
 		}catch(IOException e) {
-			e.printStackTrace();
+           e.printStackTrace();
+           request.setAttribute("errorMessage", "Error: Unable to fetch data.");
 		} 
 		
 		//Forward the request to the weather.jsp page for rendering
