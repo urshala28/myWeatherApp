@@ -10,7 +10,7 @@
     <title>Weather App</title>
      <link rel="stylesheet" href="style.css" />
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.1.0/luxon.min.js"></script>
+   
      
 </head>
 
@@ -22,18 +22,23 @@
             <input type="text" placeholder="Enter City Name" id="searchInput" value="New Delhi" name="city"/>
             <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
       </form>
+      
         <div class="weatherDetails">
             <div class="weatherIcon">
                 <img src="" alt="Clouds" id="weather-icon">
                 <h2>${temperature} °C</h2>
                  <input type="hidden" id="wc" value="${weatherCondition}"> </input>
             </div>
-            
+            <% if (request.getAttribute("errorMessage") != null) { %>
+            <div class="error-message">
+                <p><%= request.getAttribute("errorMessage") %></p>
+            </div>
+        <% } else { %>
             <div class="cityDetails">        
                 <div class="desc"><strong>${city}</strong></div>
                 <div class="date">${date}  ${day}</div>
                 <div id="clock"></div>
-                <input type="hidden" id="timezone" value="Asia/Kolkata"> <!-- Update this value as needed -->
+                <input type="hidden" id="timezone"  value="Asia/Kolkata"> <!-- Update this value as needed -->
             </div>
             <div class="windDetails">
             	<div class="humidityBox">
@@ -53,7 +58,17 @@
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
+
+
+   
+	
+	
+	 <script src="myScript.js"> </script>
+</body>
+
+</html>
 
 
    
